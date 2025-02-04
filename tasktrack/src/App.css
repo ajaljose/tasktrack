@@ -1,0 +1,15 @@
+@import url("./styles/login.css");
+*{
+    background-color: #0C0A09;
+    color:#FAFAF9;
+}
+.btn__primary{
+    background-color: #EA580C;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 10px;
+    width: 100%;
+}
