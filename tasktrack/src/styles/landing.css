@@ -60,11 +60,19 @@
         border-radius: 0.35rem;
         box-sizing: border-box; 
     }
+    .todo__list{
+        grid-area: main;
+    }
+    .filter__paginate{
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        align-items: flex-end;
+    }
 .todo__table {
     /* background-color: #415a7798; */
     min-height: 45rem;
     /* padding: 2rem; */
-  grid-area: main;
     display: grid;
     grid-template-columns: auto auto auto;
     border-radius: 1rem;
@@ -91,4 +99,14 @@
 }
 .todo__card h1,p,h2,h3{
     margin: 0;
+}
+.todo__filter .btn__secondary{
+    width: 100%;
+}
+.filter__paginate p{
+    font-size: 2rem;
+}
+.filter__paginate button:disabled{
+    background-color: #6f7070;
+    color: white;
 }

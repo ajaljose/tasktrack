@@ -4,22 +4,31 @@ import TodoListCard from "../../components/TodoListCard";
 import TodoListDetails from "../../components/TodoListDetails";
 import CommonAPI from "../../services/CommonAPI";
 const Landing = () => {
+  const [fullTodoList, setFullTodoList] = useState([]); 
   const [todoList, setTodoList] = useState([]);
   const [userList, setUserList] = useState([]);
   const [showPopup, setShowpopup] = useState({ open: false, edit: false });
   const [editId, setEditId] = useState("");
   const [filterSort, setFiltersort] = useState({ status: "", assignedUser: "", sort: "" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 9;
+
   useEffect(() => {
     const fetchDataWrapper = async () => {
       await fetchData();
     };
     fetchDataWrapper();
   }, [showPopup.open, filterSort]);
+  useEffect(() => {
+    applyPagination();
+  }, [fullTodoList, currentPage]);
   const fetchData = async () => {
     let userList: any = await CommonAPI.getData("users", {}, {});
     setUserList(userList.data);
     let todoData: any = await CommonAPI.getData(`todo?status=${filterSort.status}&assignedUser=${filterSort.assignedUser}&_sort=${filterSort.sort}&_order=asc`, {}, {});
-    setTodoList(todoData.data);
+    // setTodoList(todoData.data);
+    setFullTodoList(todoData.data);
+    setCurrentPage(1);
   }
   const handleAddNewClick = () => {
     setShowpopup({ open: true, edit: false })
@@ -32,7 +41,16 @@ const Landing = () => {
     setEditId(id);
     setShowpopup({ open: true, edit: true });
   }
-
+  const applyPagination = () => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const paginatedItems = fullTodoList.slice(startIndex, startIndex + itemsPerPage);
+    setTodoList(paginatedItems);
+  };
+  const handlePageChange = (newPage: number) => {
+    if (newPage >= 1 && newPage <= Math.ceil(fullTodoList.length / itemsPerPage)) {
+      setCurrentPage(newPage);
+    }
+  };
   return (
     <>
       <div className="list">
@@ -76,6 +94,23 @@ const Landing = () => {
           </select>
           <button className="btn__secondary" onClick={(e) => setFiltersort({ status: "", assignedUser: "", sort: "" })}>Reset</button>
         </div>
+        <div className="todo__list">
+
+        
+        <div className="filter__paginate">
+          <button className="btn__secondary" disabled={currentPage === 1} onClick={() => handlePageChange(currentPage - 1)}>
+            Previous
+          </button>
+          <p>
+            Page {currentPage} of {Math.ceil(fullTodoList.length / itemsPerPage)}
+          </p>
+          <button className="btn__secondary"
+            disabled={currentPage === Math.ceil(fullTodoList.length / itemsPerPage)}
+            onClick={() => handlePageChange(currentPage + 1)}
+          >
+            Next
+          </button>
+        </div>
         <div className="todo__table" id="todoList">
           {todoList.map((obj: any) => {
             const filteredList: any = userList.filter((userObj: any) => userObj.id == obj.assignedUser);
@@ -84,7 +119,7 @@ const Landing = () => {
             return <TodoListCard key={obj.id} cardData={obj} userName={userName} onCardClick={handleCardClick} />
           })}
         </div>
-
+        </div>
       </div>
       {
         showPopup.open ?
