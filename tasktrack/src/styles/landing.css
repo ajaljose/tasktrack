@@ -42,7 +42,24 @@
      grid-area: left;
      background-color: #4b4b4b;
      height: 750px;
-}
+     display: flex;
+     flex-direction: column;
+     align-items: start;
+     padding: 1rem;
+    }
+   .todo__filter label{
+       font-size: 2rem;
+    }
+    .todo__filter select{
+        display: block;
+        width: 100%; 
+        padding: 0.85rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border: 1px solid #ced4da;
+        border-radius: 0.35rem;
+        box-sizing: border-box; 
+    }
 .todo__table {
     /* background-color: #415a7798; */
     min-height: 45rem;

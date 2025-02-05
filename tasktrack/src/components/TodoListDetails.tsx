@@ -39,7 +39,7 @@ const TodoListDetails: React.FC<TodoListDetailsProps> = ({ closeModal, editId })
         closeModal();
     }
     const handleSaveClick = async () => {
-        if (title.trim() == "" || status.trim() == "" || dueDate.trim() == "" || description.trim() == "" || assignedUser.trim() == "") {
+        if (title.trim() == "" || status == "" || dueDate.trim() == "" || description.trim() == "" || assignedUser == "") {
             alert("Missing Some Fields!!");
             return;
         }
@@ -84,7 +84,7 @@ const TodoListDetails: React.FC<TodoListDetailsProps> = ({ closeModal, editId })
                             <option value={0}>Select</option>
                             {
                                 userList.map((user: any) => {
-                                    return <option value={user.id}>{user.name}</option>
+                                    return <option key={user.id} value={user.id}>{user.name}</option>
 
                                 })
                             }
