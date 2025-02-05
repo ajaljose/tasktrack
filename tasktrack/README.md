@@ -1,8 +1,9 @@
 # React + TypeScript + Vite
 Follow this step to run the project
-1. npm install
-2. npm run dev
-3. Open the http://localhost:5173/ url in browser
+1. Open cmd with frontend tasktrack folder directory and run the below commands in cmd
+2. npm install
+3. npm run dev
+4. Open the http://localhost:5173/ url in browser
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
