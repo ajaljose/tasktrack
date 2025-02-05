@@ -1,4 +1,3 @@
-# React + TypeScript + Vite
 Follow this step to run the project
 Run
 1. Open cmd with backend folder directory
