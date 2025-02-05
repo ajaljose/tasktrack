@@ -18,7 +18,7 @@ const TodoListDetails: React.FC<TodoListDetailsProps> = ({ closeModal, editId })
             fetchEditData();
         }
     }, []);
-    const fetchUserData=async()=>{
+    const fetchUserData = async () => {
         let data: any = await CommonAPI.getData("users", {}, {});
         console.log(data);
         setUserList(data.data);
@@ -39,6 +39,10 @@ const TodoListDetails: React.FC<TodoListDetailsProps> = ({ closeModal, editId })
         closeModal();
     }
     const handleSaveClick = async () => {
+        if (title.trim() == "" || status.trim() == "" || dueDate.trim() == "" || description.trim() == "" || assignedUser.trim() == "") {
+            alert("Missing Some Fields!!");
+            return;
+        }
         if (editId == "") {
 
             let data: any = await CommonAPI.postData("todo", {}, { title, status, dueDate, description, assignedUser });
@@ -61,9 +65,9 @@ const TodoListDetails: React.FC<TodoListDetailsProps> = ({ closeModal, editId })
         setdescription("");
         setassignedUser("");
     };
-    const handleDeleteClick=async ()=>{
+    const handleDeleteClick = async () => {
         let data: any = await CommonAPI.deleteData(`todo/${editId}`, {});
-        if(data.status==200){
+        if (data.status == 200) {
             alert("task deleted successfully");
             closeModal();
         }
@@ -79,8 +83,8 @@ const TodoListDetails: React.FC<TodoListDetailsProps> = ({ closeModal, editId })
                         <select onChange={(e) => setassignedUser(e.target.value)} value={assignedUser}>
                             <option value={0}>Select</option>
                             {
-                                userList.map((user:any)=>{
-                            return <option value={user.id}>{user.name}</option>
+                                userList.map((user: any) => {
+                                    return <option value={user.id}>{user.name}</option>
 
                                 })
                             }
@@ -103,7 +107,9 @@ const TodoListDetails: React.FC<TodoListDetailsProps> = ({ closeModal, editId })
                 <hr></hr>
                 <div className="btn_group">
                     <button className="btn__primary" onClick={handleSaveClick}>Save</button>
-                    <button className="btn__danger" onClick={handleDeleteClick}>Delete</button>
+                    {
+                        editId!=""?
+                    <button className="btn__danger" onClick={handleDeleteClick}>Delete</button>:""}
                 </div>
             </div>
 
