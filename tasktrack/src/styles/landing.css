@@ -25,6 +25,9 @@
         /* justify-content: space-between; */
         align-items: center;
     }
+    .todo__filter{
+        height:300px;
+    }
 }
 
 .todo__container{
@@ -41,12 +44,18 @@
     border-radius: 1rem;
      grid-area: left;
      background-color: #4b4b4b;
-     height: 750px;
+     min-width: 20rem;
+     height: 75rem;
      display: flex;
      flex-direction: column;
      align-items: start;
      padding: 1rem;
     }
+ @media (max-width: 800px) {    
+    .todo__filter{
+        height:300px;
+    }
+}   
    .todo__filter label{
        font-size: 2rem;
     }
@@ -78,10 +87,20 @@
     border-radius: 1rem;
     overflow-y: auto;
 }
-
+@media (max-width: 1200px) {
+    .todo__table {
+        grid-template-columns: auto auto;
+    }
+}
+@media (max-width: 800px) {
+    .todo__table {
+        display: flex;
+        flex-direction: column;
+    }
+}
 
 .todo__card{
-    background-color: #415a77;
+    background-color: #805640;
     color: white;
     font-size: 2rem;
     min-width: 25rem;
@@ -97,8 +116,15 @@
   padding: 1rem 2rem;
   cursor: pointer;
 }
+.todo__card:hover{
+    box-shadow: rgba(255, 255, 255, 0.56) 0px 11px 20px 3px;
+}
 .todo__card h1,p,h2,h3{
     margin: 0;
+}
+.todo__card__header{
+    display: flex;
+    justify-content: space-between;
 }
 .todo__filter .btn__secondary{
     width: 100%;
@@ -108,5 +134,16 @@
 }
 .filter__paginate button:disabled{
     background-color: #6f7070;
-    color: white;
+    color: rgb(207, 207, 207);
+    border: white;
+}
+.list__add{
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+}
+.list__add h2{
+    text-transform: capitalize;
+    font-size: 2rem;
+    margin: 0;
 }

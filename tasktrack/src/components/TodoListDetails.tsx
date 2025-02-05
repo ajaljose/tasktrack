@@ -7,7 +7,7 @@ interface TodoListDetailsProps {
 
 const TodoListDetails: React.FC<TodoListDetailsProps> = ({ closeModal, editId }) => {
     const [title, settitle] = useState("");
-    const [status, setstatus] = useState("");
+    const [status, setstatus] = useState("todo");
     const [dueDate, setdueDate] = useState("");
     const [description, setdescription] = useState("");
     const [assignedUser, setassignedUser] = useState("");
@@ -60,7 +60,7 @@ const TodoListDetails: React.FC<TodoListDetailsProps> = ({ closeModal, editId })
     }
     const resetForm = () => {
         settitle("");
-        setstatus("");
+        setstatus("todo");
         setdueDate("");
         setdescription("");
         setassignedUser("");

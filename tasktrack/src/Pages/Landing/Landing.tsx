@@ -3,6 +3,8 @@ import { Outlet } from "react-router-dom";
 import TodoListCard from "../../components/TodoListCard";
 import TodoListDetails from "../../components/TodoListDetails";
 import CommonAPI from "../../services/CommonAPI";
+import { useAppContext } from "../../context/ContextApi";
+import { useNavigate } from 'react-router-dom';
 const Landing = () => {
   const [fullTodoList, setFullTodoList] = useState([]); 
   const [todoList, setTodoList] = useState([]);
@@ -12,8 +14,12 @@ const Landing = () => {
   const [filterSort, setFiltersort] = useState({ status: "", assignedUser: "", sort: "" });
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9;
-
+  const navigate = useNavigate();
+  const {userDetails, setUserDetails } = useAppContext();
   useEffect(() => {
+    if(userDetails.name==""){
+      navigate("/login");
+    }
     const fetchDataWrapper = async () => {
       await fetchData();
     };
@@ -51,6 +57,10 @@ const Landing = () => {
       setCurrentPage(newPage);
     }
   };
+  const handleLogout=()=>{
+    setUserDetails({name:"",password:""});
+    navigate("/login");
+  }
   return (
     <>
       <div className="list">
@@ -58,10 +68,11 @@ const Landing = () => {
         <div className="list__container">
           <h1 className="list__header">To Do List</h1>
           <div className="list__add">
-            <button className="btn__primary" id="btn__add" onClick={handleAddNewClick}>ADD A NEW TASK</button>
+            <button className="btn__primary" id="btn__add" onClick={handleAddNewClick}>ADD A NEW TASK</button> 
+            <h2>Hi,{userDetails.name}</h2>
+            <button className="btn__secondary" onClick={handleLogout}> Logout</button>
           </div>
         </div>
-        {/* <hr></hr> */}
       </div>
       <div className="todo__container">
         <div className="todo__filter">
