@@ -40,6 +40,16 @@ class CommonAPI implements ICommonAPI {
       })
       .then((response) => response);
 }
+deleteData<T>(url: string, headers = {}): Promise<AxiosResponse<T>> {
+  const combinedHeaders = { ...this.defaultHeaders, ...headers };
+
+  return axios
+    .delete(`${import.meta.env.VITE_API_URL}/${url}`, {
+      headers: combinedHeaders,
+    })
+    .then((response) => response);
+}
+
 }
 
 export default new CommonAPI();

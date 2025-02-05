@@ -13,7 +13,7 @@ const Landing = () => {
       await fetchData();
     };
     fetchDataWrapper();
-  }, []);
+  }, [showPopup.open]);
   const fetchData = async () => {
     let userList: any = await CommonAPI.getData("users", {}, {});
     setUserList(userList.data);

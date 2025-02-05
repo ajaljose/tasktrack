@@ -11,11 +11,19 @@ const TodoListDetails: React.FC<TodoListDetailsProps> = ({ closeModal, editId })
     const [dueDate, setdueDate] = useState("");
     const [description, setdescription] = useState("");
     const [assignedUser, setassignedUser] = useState("");
+    const [userList, setUserList] = useState([]);
     useEffect(() => {
+        fetchUserData();
         if (editId != "") {
             fetchEditData();
         }
     }, []);
+    const fetchUserData=async()=>{
+        let data: any = await CommonAPI.getData("users", {}, {});
+        console.log(data);
+        setUserList(data.data);
+
+    }
     const fetchEditData = async () => {
         let data: any = await CommonAPI.getData(`todo/${editId}`, {}, {});
         console.log(data);
@@ -53,7 +61,13 @@ const TodoListDetails: React.FC<TodoListDetailsProps> = ({ closeModal, editId })
         setdescription("");
         setassignedUser("");
     };
-
+    const handleDeleteClick=async ()=>{
+        let data: any = await CommonAPI.deleteData(`todo/${editId}`, {});
+        if(data.status==200){
+            alert("task deleted successfully");
+            closeModal();
+        }
+    }
     return (
         <div className="modal">
 
@@ -63,9 +77,13 @@ const TodoListDetails: React.FC<TodoListDetailsProps> = ({ closeModal, editId })
                     <div className="header__grp">
                         <label>User:</label>
                         <select onChange={(e) => setassignedUser(e.target.value)} value={assignedUser}>
-                            <option value="1">To Do</option>
-                            <option value="2">In Progress</option>
-                            <option value="3">Done</option>
+                            <option value={0}>Select</option>
+                            {
+                                userList.map((user:any)=>{
+                            return <option value={user.id}>{user.name}</option>
+
+                                })
+                            }
                         </select>
                         <label>Status:</label>
                         <select onChange={(e) => setstatus(e.target.value)} value={status}>
@@ -85,7 +103,7 @@ const TodoListDetails: React.FC<TodoListDetailsProps> = ({ closeModal, editId })
                 <hr></hr>
                 <div className="btn_group">
                     <button className="btn__primary" onClick={handleSaveClick}>Save</button>
-                    <button className="btn__danger">Delete</button>
+                    <button className="btn__danger" onClick={handleDeleteClick}>Delete</button>
                 </div>
             </div>
 
