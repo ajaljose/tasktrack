@@ -1,7 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Licorice&display=swap');
+
 @import url("./styles/login.css");
-*{
-    background-color: #0C0A09;
+@import url("./styles/landing.css");
+@import url("./styles/todolistdetails.css");
+html {
+    font-size: 62.5%;
+    font-family: "Teko", sans-serif;
+    font-weight: normal;
+margin: 0;
+background-color: #0c0a09e5;
     color:#FAFAF9;
+}
+body{
+    margin: 0;
 }
 .btn__primary{
     background-color: #EA580C;
@@ -12,4 +24,16 @@
     font-weight: 500;
     margin-top: 10px;
     width: 100%;
+    color: white;
+}
+.btn__danger{
+    background-color: #ea0c0c;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 10px;
+    width: 100%;
+    color: white;
 }
